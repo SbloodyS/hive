@@ -128,7 +128,7 @@ public class LlapTaskReporter implements TaskReporterInterface {
         sendCounterInterval, maxEventsToGet, requestCounter, containerIdStr, initialEvent,
         fragmentRequestId, wmCounters);
     ListenableFuture<Boolean> future = heartbeatExecutor.submit(currentCallable);
-    Futures.addCallback(future, new HeartbeatCallback(errorReporter));
+    Futures.addCallback(future, new HeartbeatCallback(errorReporter), MoreExecutors.directExecutor());
   }
 
   /**
@@ -184,7 +184,7 @@ public class LlapTaskReporter implements TaskReporterInterface {
     private AtomicInteger nonOobHeartbeatCounter = new AtomicInteger(0);
     private int nextHeartbeatNumToLog = 0;
     /*
-     * Tracks the last non-OOB heartbeat number at which counters were sent to the AM. 
+     * Tracks the last non-OOB heartbeat number at which counters were sent to the AM.
      */
     private int prevCounterSendHeartbeatNum = 0;
     private TezEvent initialEvent;

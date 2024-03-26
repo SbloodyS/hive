@@ -54,7 +54,7 @@ public class UDFFromUnixTime extends UDF {
 
   /**
    * Convert UnixTime to a string format.
-   * 
+   *
    * @param unixtime
    *          The number of seconds from 1970-01-01 00:00:00
    * @param format
@@ -70,10 +70,10 @@ public class UDFFromUnixTime extends UDF {
 
     return eval(unixtime.get(), format);
   }
-  
+
   /**
    * Convert UnixTime to a string format.
-   * 
+   *
    * @param unixtime
    *          The number of seconds from 1970-01-01 00:00:00
    * @return a String in default format specified.
@@ -88,7 +88,7 @@ public class UDFFromUnixTime extends UDF {
 
   /**
    * Convert UnixTime to a string format.
-   * 
+   *
    * @param unixtime
    *          The number of seconds from 1970-01-01 00:00:00
    * @param format
@@ -108,7 +108,7 @@ public class UDFFromUnixTime extends UDF {
   /**
    * Internal evaluation function given the seconds from 1970-01-01 00:00:00 and
    * the output text format.
-   * 
+   *
    * @param unixtime
    *          seconds of type long from 1970-01-01 00:00:00
    * @param format
@@ -120,7 +120,7 @@ public class UDFFromUnixTime extends UDF {
   private Text eval(long unixtime, Text format) {
     if (!format.equals(lastFormat)) {
       formatter = new SimpleDateFormat(format.toString());
-      formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+//      formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
       lastFormat.set(format);
     }
 

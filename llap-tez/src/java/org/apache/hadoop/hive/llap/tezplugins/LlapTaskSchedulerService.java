@@ -660,7 +660,7 @@ public class LlapTaskSchedulerService extends TaskScheduler {
         // update the pending state for now as we release this lock to take both.
         newStateAnyTask = requestedValue;
       }
-    } // End of synchronized (ti) 
+    } // End of synchronized (ti)
     if (newStateSameTask != null) {
       WM_LOG.info("Sending update to the same task in response handling "
           + ti.attemptId + ", " + newStateSameTask);
@@ -744,15 +744,18 @@ public class LlapTaskSchedulerService extends TaskScheduler {
       }, 10000L, TimeUnit.MILLISECONDS);
 
       nodeEnablerFuture = nodeEnabledExecutor.submit(nodeEnablerCallable);
-      Futures.addCallback(nodeEnablerFuture, new LoggingFutureCallback("NodeEnablerThread", LOG));
+      Futures.addCallback(nodeEnablerFuture, new LoggingFutureCallback("NodeEnablerThread", LOG),
+              MoreExecutors.directExecutor());
 
       delayedTaskSchedulerFuture =
           delayedTaskSchedulerExecutor.submit(delayedTaskSchedulerCallable);
       Futures.addCallback(delayedTaskSchedulerFuture,
-          new LoggingFutureCallback("DelayedTaskSchedulerThread", LOG));
+          new LoggingFutureCallback("DelayedTaskSchedulerThread", LOG),
+              MoreExecutors.directExecutor());
 
       schedulerFuture = schedulerExecutor.submit(schedulerCallable);
-      Futures.addCallback(schedulerFuture, new LoggingFutureCallback("SchedulerThread", LOG));
+      Futures.addCallback(schedulerFuture, new LoggingFutureCallback("SchedulerThread", LOG),
+              MoreExecutors.directExecutor());
 
       registry.start();
       registry.registerStateChangeListener(new NodeStateChangeListener());
