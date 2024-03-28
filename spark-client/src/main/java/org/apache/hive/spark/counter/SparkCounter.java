@@ -19,6 +19,7 @@ package org.apache.hive.spark.counter;
 
 import java.io.Serializable;
 
+import org.jetbrains.annotations.NotNull;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.util.LongAccumulator;
 
@@ -50,7 +51,7 @@ public class SparkCounter implements Serializable {
     String displayName,
     String groupName,
     long initValue,
-    JavaSparkContext sparkContext) {
+    @NotNull JavaSparkContext sparkContext) {
 
     this.name = name;
     this.displayName = displayName;
